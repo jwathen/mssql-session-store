@@ -10,13 +10,14 @@ $ npm install mssql-session-store
 
 ## Important:
 The store is expecting this table to exist in your database.
-
+```
   create table Session
   (
     sessionId nvarchar(450) not null primary key,
     sessionData nvarchar(max) null,
     lastTouchedUtc datetime not null  
   )
+```
 
 ## Example
     var session = require('express-session')
