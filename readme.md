@@ -52,3 +52,6 @@ Optional interval to destroy expired sessions in seconds or -1 to never remove e
 Default value: `undefined`
 
 Optional callback that is fired after each reaping.
+
+## License
+[http://jwathen.mit-license.org](http://jwathen.mit-license.org/)
