@@ -1,0 +1,49 @@
+{
+  "name": "mssql-session-store",
+  "version": "0.0.1",
+  "description": "Implementation of an express-session store using SQL Server.",
+  "main": "index.js",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jwathen/mssql-session-store"
+  },
+  "keywords": [
+    "session",
+    "store",
+    "express",
+    "connect",
+    "sql server",
+    "msssql"
+  ],
+  "author": {
+    "name": "John Wathen <john.s.wathen@gmail.com>"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://jwathen.mit-license.org/"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/jwathen/mssql-session-store/issues"
+  },
+  "homepage": "https://github.com/jwathen/mssql-session-store/",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "dependencies": {
+    "mssql": "^2.1.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "async": "^0.9.0",
+    "express-session": "^1.11.1",
+    "mocha": "^2.2.4",
+    "mssql": "^2.1.2",
+    "underscore": "^1.8.3"
+  }
+}
