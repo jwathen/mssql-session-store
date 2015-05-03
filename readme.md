@@ -46,7 +46,7 @@ Default value: `undefined`
 
 Optional instance of a Connection from [mssql](https://github.com/patriksimek/node-mssql).  If undefined then the global connection will be used.
 
-###ttl
+### ttl
 Default value: `3600`
 
 Optional time to live in seconds.  Sessions that have not been "touched" in this amount of time will be destroyed.  If reapInterval is set to -1 then this setting has no effect.
