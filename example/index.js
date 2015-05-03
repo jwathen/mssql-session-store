@@ -1,20 +1,16 @@
 var express = require('express');
 var session = require('express-session');
 var sql = require('mssql');
-var MssqlStore = require('./lib')(session);
+var MssqlStore = require('../lib')(session);
 
 var dbConfig = {
   server: "localhost\\sqlexpress",
   database: "sessiontest",
   user: "sa",
-  password: "*****"
+  password: "atonan"
 };
 
 sql.connect(dbConfig, function(err) {
-  if (err) return console.log(err);
-  process.exit(-1);
-  return;
-
   var app = express();
   app.use(session({
     secret: '991E6B44882C4593A46C0DDFCA23E06A',

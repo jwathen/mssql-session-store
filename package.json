@@ -1,6 +1,6 @@
 {
   "name": "mssql-session-store",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Implementation of an express-session store using SQL Server.",
   "main": "index.js",
   "private": false,
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "async": "^0.9.0",
+    "express": "^4.12.3",
     "express-session": "^1.11.1",
     "mocha": "^2.2.4",
     "mssql": "^2.1.2",
