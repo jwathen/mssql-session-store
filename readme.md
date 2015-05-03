@@ -33,6 +33,16 @@ app.use(session({
 ```
 
 ## Options
+```
+var options = {
+	connection: existingConnection,
+	ttl: 3600,
+	reapInterval: 3600,
+	reapCallback: function() {
+		console.log('expired sessions were removed);
+	}
+};
+```
 ### connection
 Default value: `undefined`
 
