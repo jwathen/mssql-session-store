@@ -4,6 +4,7 @@ var async = require('async');
 var fs = require('fs');
 var session = require('express-session');
 var sql = require('mssql');
+var superagent = require('superagent');
 
 var MssqlStore = require('../lib/')(session);
 
@@ -145,7 +146,7 @@ describe('MssqlStore', function() {
       tasks.push(function(callback) { store.set('sid', { name: 'John' }, callback); });
       tasks.push(function(callback) { getLastTouchedUtc('sid', callback); });
       tasks.push(function(callback) { setTimeout(callback, 250); });
-      tasks.push(function(callback) { store.touch('sid', callback); });
+      tasks.push(function(callback) { store.touch('sid', session, callback); });
       tasks.push(function(callback) { getLastTouchedUtc('sid', callback); });
       async.series(tasks, function(err, results) {
         var lastTouchedBefore = results[1];
@@ -181,6 +182,30 @@ describe('MssqlStore', function() {
         var length = results[3];
         assert.strictEqual(length, 0);
         done();
+      });
+    });
+  });
+
+  describe('example site', function() {
+    it('increments the visit count', function(done) {      
+      var example = require('../example/');
+      example.start(function(err) {
+        assert.ifError(err);
+        var agent = superagent.agent();
+        var visitHomePage = function(expectedCount, callback) {
+          agent
+            .get('http://localhost:3000/')
+            .end(function(err, res) {
+              if (err) return callback(err);
+              assert.equal(res.text, 'You have visited ' + expectedCount + ' times.');
+              callback();
+          });
+        }
+
+        async.eachSeries([1, 2, 3, 4, 5], visitHomePage, function(err) {
+          assert.ifError(err);
+          done();
+        });
       });
     });
   });

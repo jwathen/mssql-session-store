@@ -10,21 +10,34 @@ var dbConfig = {
   password: "atonan"
 };
 
-sql.connect(dbConfig, function(err) {
-  var app = express();
-  app.use(session({
-    secret: '991E6B44882C4593A46C0DDFCA23E06A',
-    resave: false,
-    saveUninitialized: false,
-    store: new MssqlStore({ reapInterval: 10, ttl: 10 })
-  }));
+var start = function(callback) {
+  callback = callback || function() {};
 
-  app.get('/', function (req, res) {
-    req.session.visits = (req.session.visits || 0) + 1;
-    res.send('You have visited ' + req.session.visits + ' times.');
-  });
+  sql.connect(dbConfig, function(err) {
+    if (err) return callback(err);
+    var app = express();
+    app.use(session({
+      secret: '991E6B44882C4593A46C0DDFCA23E06A',
+      resave: false,
+      saveUninitialized: false,
+      store: new MssqlStore({ reapInterval: 10, ttl: 10 })
+    }));
 
-  var server = app.listen(3000, function () {
-    console.log('server is listening on port 3000');
+    app.get('/', function (req, res) {
+      req.session.visits = (req.session.visits || 0) + 1;
+      res.send('You have visited ' + req.session.visits + ' times.');
+    });
+
+    var server = app.listen(3000, function (err) {
+      if (err) return callback(err);
+      callback();
+    });
   });
-});
+};
+
+if (require.main === module) {
+  start();
+}
+else {
+  module.exports = { start: start };
+}
